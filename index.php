@@ -3,7 +3,7 @@
 
   
     // Get customers
-    $query = 'SELECT firstName, lastName, FROM customers order by lastName';
+    $query = 'SELECT firstName, lastName FROM customers ORDER BY lastName';
     // result set
     $customers = $db->query($query);
 
