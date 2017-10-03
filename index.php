@@ -1,19 +1,34 @@
 <?php
     require_once('database.php');
-
-  
-    // Get customers
-    $query = 'SELECT firstName, lastName FROM customers ORDER BY lastName';
-    // result set
-    $customers = $db->query($query);
-
-?>
-<!DOCTYPE html>
+    
+    //Set search term or hard-code the parameter value
+    $state = CA;
+    
+    $query = "SELECT firstName, lastName, city FROM customers WHERE state = ? ORDER BY lastName";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param('s', $state);
+    $stmt->execute();
+    
+    $stmt->store_result();
+    //store result fields in variables
+    $stmt->bind_result($firstName, $lastName, $city);
+ 
+    //use this method to display results
+    while($stmt->fetch()) {
+      echo "<p>First Name: ".$firstName;
+      echo "<br />Last Name: ".$lastName;
+      echo "<br />City: ".$city;
+    }
+    
+    $stmt->free_result();
+    $db->close();
+ ?>
+ <!DOCTYPE html>
 <html>
 
 <!-- the head section -->
 <head>
-    <title>My Customers</title>
+    <title>Tech Support</title>
     <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
 
@@ -22,34 +37,38 @@
     <div id="page">
 
     <div id="header">
-        <h1>Customer Relations</h1>
+        <h1>Tech Support</h1>
     </div>
 
     <div id="main">
 
-        <h1>Customer List</h1>
+        <h1>Tech Support</h1>
 
         <div id="content"> 
             
-            <table>
+             <table>
                 <tr>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>City</th>
                 </tr>
-                <?php foreach ($customers as $customer) : ?>
                 <tr>
-                    <td><?php echo $customer['firstName']; ?></td>
-                    <td><?php echo $customer['lastName']; ?></td>
+                <?php while($customer = $stmt->fetch()) ?> 
+                        <td><?php echo $customer.$firstName; ?>
+                        <td><?php echo $customer.$lastName; ?></td>
+                        <td><?php echo $customer.$city; ?></td>
                 </tr>
-                <?php endforeach; ?>
             </table>
+
         </div>
     </div>
 
     <div id="footer">
-        <p>&copy; <?php echo date("Y"); ?> My Guitar Shop, Inc.</p>
+        <p>&copy; <?php echo date("Y"); ?> Tech Support</p>
     </div>
 
     </div><!-- end page -->
 </body>
 </html>
+ 
+ 

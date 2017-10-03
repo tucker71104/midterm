@@ -1,7 +1,7 @@
 <?php
     $dsn = 'localhost';
-    $dbname = 'shopDB';
-    $username = 'mgs_user';
+    $dbname = 'tech_support';
+    $username = 'ts_user';
     $password = 'pa55word';
     
     $db = new mysqli($dsn,  $username, $password, $dbname);
