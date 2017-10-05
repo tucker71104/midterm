@@ -53,8 +53,8 @@
                     <th>City</th>
                 </tr>
                 <tr>
-                <?php while($customer = $stmt->fetch()) ?> 
-                        <td><?php echo $customer.$firstName; ?>
+                <?php while($stmt->fetch()) ?> 
+                        <td><?php echo $customer.$firstName; ?></td>
                         <td><?php echo $customer.$lastName; ?></td>
                         <td><?php echo $customer.$city; ?></td>
                 </tr>
